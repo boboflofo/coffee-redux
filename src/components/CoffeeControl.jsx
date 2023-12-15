@@ -2,6 +2,7 @@ import React from "react";
 import CoffeeList from "./CoffeeList";
 import CoffeeDetail from "./CoffeeDetail";
 import CoffeeForm from "./CoffeeForm";
+import { useSelector } from "react-redux";
 
 export default class CoffeeControl extends React.Component {
   constructor(props) {
@@ -13,6 +14,8 @@ export default class CoffeeControl extends React.Component {
       coffeeList: [],
     };
   }
+
+  
 
   changeShownCoffee = (id) => {
     const shownCoffee = this.state.coffeeList.filter(
@@ -68,6 +71,8 @@ export default class CoffeeControl extends React.Component {
     let shownPage = null;
     let buttonText = null;
 
+    const coffeeList = useSelector((state) => state.coffee);
+
     if (this.state.coffeeShown != null) {
       shownPage = (
         <CoffeeDetail
@@ -79,13 +84,11 @@ export default class CoffeeControl extends React.Component {
     else if (this.state.coffeeFormMode) {
       shownPage = <CoffeeForm addCoffee={this.addCoffeeToList} />;
       buttonText = "Return to Coffee Display";
-    // } else if (this.state.coffeeEditMode) {
-    //   shownPage = <CoffeeEditForm coffee={this.shownCoffee} />;
     }  else {
       buttonText = "Add Coffee to List";
       shownPage = (
         <CoffeeList
-          coffeeList={this.state.coffeeList}
+          coffeeList={coffeeList}
           changeShownCoffee={this.changeShownCoffee}
         />
       );
@@ -93,6 +96,7 @@ export default class CoffeeControl extends React.Component {
 
     return (
       <React.Fragment>
+        <h1>Coffee Shop</h1>
         {shownPage}
         <button onClick={this.handleClick}>{buttonText}</button>
       </React.Fragment>

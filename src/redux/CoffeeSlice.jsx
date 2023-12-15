@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {};
 
-const playersSlice = createSlice({
+const coffeeSlice = createSlice({
 
   name: "players", 
   initialState: initialState, 
@@ -17,6 +17,6 @@ const playersSlice = createSlice({
   },
 });
 
-export default playersSlice.reducer; 
+export default coffeeSlice.reducer; 
 
 export const { addPlayer } = playersSlice.actions; 
