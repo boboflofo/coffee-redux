@@ -2,35 +2,30 @@ import React from "react";
 import CoffeeList from "./CoffeeList";
 import CoffeeDetail from "./CoffeeDetail";
 import CoffeeForm from "./CoffeeForm";
-import { useSelector } from "react-redux";
+import { connect } from "react-redux";
+import PropTypes from "prop-types";
 
-export default class CoffeeControl extends React.Component {
+
+
+class CoffeeControl extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       coffeeShown: null,
       coffeeEditMode: false,
       coffeeFormMode: false,
-      coffeeList: [],
     };
   }
 
   
 
   changeShownCoffee = (id) => {
-    const shownCoffee = this.state.coffeeList.filter(
+    const shownCoffee = this.props.coffeeList.filter(
       (coffee) => coffee.id === id
     )[0];
     this.setState({ coffeeShown: shownCoffee });
   };
 
-  addCoffeeToList = (newCoffee) => {
-    const updatedCoffeeList = this.state.coffeeList.concat(newCoffee);
-    this.setState({
-      coffeeList: updatedCoffeeList,
-      coffeeFormMode: false,
-    });
-  };
 
   deleteCoffeeFromList = (id) => {
     const updatedCoffeeList = this.state.coffeeList.filter(
@@ -71,7 +66,7 @@ export default class CoffeeControl extends React.Component {
     let shownPage = null;
     let buttonText = null;
 
-    const coffeeList = useSelector((state) => state.coffee);
+
 
     if (this.state.coffeeShown != null) {
       shownPage = (
@@ -82,13 +77,13 @@ export default class CoffeeControl extends React.Component {
       );
     }
     else if (this.state.coffeeFormMode) {
-      shownPage = <CoffeeForm addCoffee={this.addCoffeeToList} />;
+      shownPage = <CoffeeForm />;
       buttonText = "Return to Coffee Display";
     }  else {
       buttonText = "Add Coffee to List";
       shownPage = (
         <CoffeeList
-          coffeeList={coffeeList}
+          coffeeList={this.props.coffeeList}
           changeShownCoffee={this.changeShownCoffee}
         />
       );
@@ -96,10 +91,19 @@ export default class CoffeeControl extends React.Component {
 
     return (
       <React.Fragment>
-        <h1>Coffee Shop</h1>
         {shownPage}
         <button onClick={this.handleClick}>{buttonText}</button>
       </React.Fragment>
     );
   }
 }
+
+CoffeeControl.propTypes = {
+  coffeeList: PropTypes.arr
+}
+
+const mapStateToProps = (state) => ({
+  coffeeList: state.coffee,
+});
+
+export default connect(mapStateToProps)(CoffeeControl);

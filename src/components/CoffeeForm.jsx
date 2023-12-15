@@ -3,8 +3,9 @@ import PropTypes from 'prop-types'
 import FormTemplate from './FormTemplate'
 import { v4 } from 'uuid';
 import { addCoffee } from "./../redux/CoffeeSlice.jsx"
+import { useDispatch } from "react-redux";
 
-export default function CoffeeForm(props) {
+export default function CoffeeForm() {
 
   const dispatch = useDispatch();
 
