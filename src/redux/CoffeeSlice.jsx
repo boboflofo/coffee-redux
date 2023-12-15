@@ -11,9 +11,6 @@ const coffeeSlice = createSlice({
     addCoffee: (state, action) => {
       state.push(action.payload);
     },
-    removeCoffee: (state, action) => {
-      return state.filter((coffee) => coffee.id !== action.payload);
-    },
     sellCoffee: (state,action) => {
       return state.map((coffee) => {
         if (coffee.id === action.payload.id && coffee.pounds > 0) {
@@ -21,11 +18,11 @@ const coffeeSlice = createSlice({
         }
         return coffee;
     })
-  },
+  }, 
 }});
 
 export default coffeeSlice.reducer; 
 
 export const coffeeSelector = (state) => state.coffee
 
-export const { addCoffee, sellCoffee, removeCoffee} = coffeeSlice.actions; 
+export const { addCoffee, sellCoffee} = coffeeSlice.actions; 

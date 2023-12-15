@@ -4,8 +4,7 @@ import CoffeeDetail from "./CoffeeDetail";
 import CoffeeForm from "./CoffeeForm";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
-import { removeCoffee, sellCoffee } from "./../redux/CoffeeSlice.jsx"
-import { useDispatch } from "react-redux";
+import {toggleForm , setFormFalse} from "./../redux/formSlice.jsx";
 
 
 
@@ -14,12 +13,15 @@ class CoffeeControl extends React.Component {
     super(props);
     this.state = {
       coffeeShown: null,
-      coffeeEditMode: false,
-      coffeeFormMode: false,
     };
   }
 
-  
+  toggleCoffeeShown = () => {
+    this.setState({
+      coffeeShown: null,
+    });
+  }
+
 
   changeShownCoffee = (id) => {
     const shownCoffee = this.props.coffeeList.filter(
@@ -29,29 +31,14 @@ class CoffeeControl extends React.Component {
   };
 
 
-  deleteCoffeeFromList = (id) => {
-    const { dispatch } = this.props;
-    dispatch(removeCoffee(id));
-    this.setState({
-      coffeeShown: null,
-    });
-  };
-
-  sellCoffeeFromList = (coffeeShown) => {
-    const dispatch = useDispatch();
-    dispatch(sellCoffee(coffeeShown))
-  };
-
   handleClick = () => {
     if (this.state.coffeeShown != null) {
       this.setState({
-        coffeeFormMode: false,
         coffeeShown: null
       });
+      this.props.setFormFalse(); 
     } else {
-      this.setState((prevState) => ({
-        coffeeFormMode: !prevState.coffeeFormMode,
-      }));
+      this.props.toggleForm(); 
     }
   };
 
@@ -67,11 +54,12 @@ class CoffeeControl extends React.Component {
           coffee={this.state.coffeeShown}
           handleSell={this.sellCoffeeFromList}
           handleDelete = {this.deleteCoffeeFromList}
+          toggleCoffee = {this.toggleCoffeeShown}
         />
       );
     }
-    else if (this.state.coffeeFormMode) {
-      shownPage = <CoffeeForm />;
+    else if (this.props.coffeeFormMode) {
+      shownPage = <CoffeeForm toggleForm = {this.toggleFormMode}/>;
       buttonText = "Return to Coffee Display";
     }  else {
       buttonText = "Add Coffee to List";
@@ -93,11 +81,20 @@ class CoffeeControl extends React.Component {
 }
 
 CoffeeControl.propTypes = {
-  coffeeList: PropTypes.array
-}
+  coffeeList: PropTypes.array,
+  coffeeFormMode: PropTypes.bool,
+  toggleForm: PropTypes.func,
+  setFormFalse: PropTypes.func,
+};
 
 const mapStateToProps = (state) => ({
   coffeeList: state.coffee,
+  coffeeFormMode: state.coffeeFormMode
 });
 
-export default connect(mapStateToProps)(CoffeeControl);
+const mapDispatchToProps = (dispatch) => ({
+  toggleForm: () => dispatch(toggleForm()),
+  setFormFalse: () => dispatch(setFormFalse()),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(CoffeeControl);

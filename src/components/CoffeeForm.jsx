@@ -4,6 +4,8 @@ import FormTemplate from './FormTemplate'
 import { v4 } from 'uuid';
 import { addCoffee } from "./../redux/CoffeeSlice.jsx"
 import { useDispatch } from "react-redux";
+import { toggleForm } from "./../redux/formSlice.jsx";
+
 
 export default function CoffeeForm() {
 
@@ -19,6 +21,7 @@ export default function CoffeeForm() {
       pounds: 130,
       id: v4()
     }));
+    dispatch(toggleForm)
   }
   return(
     <React.Fragment>
