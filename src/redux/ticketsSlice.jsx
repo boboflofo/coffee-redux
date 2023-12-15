@@ -9,7 +9,14 @@ const playersSlice = createSlice({
   reducers: {
     
     addCoffee: (state, action) => {
-      
+      return Object.assign({}, state, {
+        [id]: {
+          names: names,
+          location: location,
+          issue: issue,
+          id: id
+        }
+      });
 
     },
   },
