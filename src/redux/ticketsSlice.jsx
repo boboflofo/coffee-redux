@@ -15,6 +15,9 @@ const playersSlice = createSlice({
           location: location,
           issue: issue,
           id: id
+          const newState = { ...state };
+    delete newState[id];
+    return newState;
         }
       });
 
