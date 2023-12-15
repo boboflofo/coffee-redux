@@ -4,6 +4,8 @@ import CoffeeDetail from "./CoffeeDetail";
 import CoffeeForm from "./CoffeeForm";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
+import { removeCoffee, sellCoffee } from "./../redux/CoffeeSlice.jsx"
+import { useDispatch } from "react-redux";
 
 
 
@@ -28,25 +30,16 @@ class CoffeeControl extends React.Component {
 
 
   deleteCoffeeFromList = (id) => {
-    const updatedCoffeeList = this.state.coffeeList.filter(
-      (coffee) => coffee.id !== id
-    );
+    const { dispatch } = this.props;
+    dispatch(removeCoffee(id));
     this.setState({
-      coffeeList: updatedCoffeeList,
       coffeeShown: null,
     });
   };
 
   sellCoffeeFromList = (coffeeShown) => {
-    const updatedCoffeeList = this.state.coffeeList.map((coffee) => {
-      if (coffee.id === coffeeShown.id) {
-        if (coffee.pounds > 0) {
-          return { ...coffee, pounds: coffee.pounds - 1 };
-        }
-      }
-      return coffee;
-    });
-    this.setState({ coffeeList: updatedCoffeeList });
+    const dispatch = useDispatch();
+    dispatch(sellCoffee(coffeeShown))
   };
 
   handleClick = () => {
@@ -73,6 +66,7 @@ class CoffeeControl extends React.Component {
         <CoffeeDetail
           coffee={this.state.coffeeShown}
           handleSell={this.sellCoffeeFromList}
+          handleDelete = {this.deleteCoffeeFromList}
         />
       );
     }
@@ -99,7 +93,7 @@ class CoffeeControl extends React.Component {
 }
 
 CoffeeControl.propTypes = {
-  coffeeList: PropTypes.arr
+  coffeeList: PropTypes.array
 }
 
 const mapStateToProps = (state) => ({
