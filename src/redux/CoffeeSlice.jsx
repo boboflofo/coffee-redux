@@ -19,4 +19,4 @@ const coffeeSlice = createSlice({
 
 export default coffeeSlice.reducer; 
 
-export const { addPlayer } = playersSlice.actions; 
+export const { addCoffee } = coffeeSlice.actions; 

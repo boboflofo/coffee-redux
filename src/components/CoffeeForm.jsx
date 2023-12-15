@@ -2,6 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import FormTemplate from './FormTemplate'
 import { v4 } from 'uuid';
+import { addCoffee } from "./../redux/coffeeSlice.jsx"
 
 export default function CoffeeForm(props) {
 
