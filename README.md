@@ -13,6 +13,7 @@
 * npm 
 * React
 * Vite
+* Redux
 
 ## Description
 Website that asks users for name, origin, price, and roast quality and updates the display based on that information. Users will be able to edit specific data, read, and create coffee instances for display.
@@ -25,11 +26,14 @@ Website that asks users for name, origin, price, and roast quality and updates t
 * Navigate to the repository of the named project through this [link](https://github.com/boboflofo/coffee.git)
 * On the top right of the screen, navigate to the **fork** button and fork the repository
 * Open a code editor such as VScode and in the terminal **git clone** the project for editing capabilities
+* To be able to utilize Redux and Redux toolkit, run commands **npm install @reduxjs/toolkit** and **npm install react-redux**
 * Install dependencies using command in terminal **npm install**
 * This project utilizes UUID for unique key properties, ensure that **npm i uuid** is ran in the terminal so the IDs can be accessed
 * Run **npm run dev** to be able to access the server locally
 * Personalize and edit directly in your code editor!
-* Run command **npm run test** to run jest for testing 
+* To install the testing environment, install vitest using command **npm install -D vitest**
+* Make sure a test script is added to the package.json file with line **"test": "vitest"**
+* Run command **npm run test** to run  for testing 
 * Run command **npm run lint** to lint project before running to ensure that the code is error free
 
 
@@ -63,4 +67,4 @@ SOFTWARE.
 Contact jonathan91790@yahoo.com for additional issues
 
 
-Copyright (c) _12/8/2023_ _Jonathan Song(s)_
+Copyright (c) _12/15/2023_ _Jonathan Song(s)_
