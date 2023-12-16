@@ -23,6 +23,4 @@ const coffeeSlice = createSlice({
 
 export default coffeeSlice.reducer; 
 
-export const coffeeSelector = (state) => state.coffee
-
 export const { addCoffee, sellCoffee} = coffeeSlice.actions; 

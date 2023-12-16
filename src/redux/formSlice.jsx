@@ -7,17 +7,15 @@ const formSlice = createSlice({
   name: "form", 
   initialState: initialState, 
   reducers: {
-    toggleForm: (state, action) => {
+    toggleForm: (state) => {
       return !state;
     },
-    setFormFalse: (state,action) => {
+    setFormFalse: () => {
       return false;
     },
 
 }});
 
 export default formSlice.reducer; 
-
-export const formSelector = (state) => state.form
 
 export const { toggleForm, setFormFalse} = formSlice.actions; 
