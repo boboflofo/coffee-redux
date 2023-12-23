@@ -1,9 +1,10 @@
 import React from "react";
 import Coffee from "./Coffee";
 import PropTypes from "prop-types";
+import { connect } from "react-redux";
 
 
-export default function CoffeeList(props){
+function CoffeeList(props){
   return (
     <React.Fragment>
         {props.coffeeList.map((coffee) =>
@@ -19,8 +20,15 @@ export default function CoffeeList(props){
   );
 }
 
+const mapStateToProps = (state) => ({
+  coffeeList: state.coffee,
+});
+
+
 CoffeeList.propTypes = {
   coffeeList: PropTypes.array,
   changeShownCoffee: PropTypes.func
 };
+
+export default connect(mapStateToProps)(CoffeeList);
 
